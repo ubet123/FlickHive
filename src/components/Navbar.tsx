@@ -1,10 +1,36 @@
 import { BiCameraMovie } from "react-icons/bi";
 import { Input } from "./ui/input";
-import { Link } from "react-router";
+import { Link,useNavigate  } from "react-router";
 import { CiHeart } from "react-icons/ci";
 import Genres from "./Genres";
 import { IoMdArrowDropdown } from "react-icons/io";
-function Navbar() {
+import { useContext, useState } from "react";
+import { SearchResultContext } from "@/context/searchResult.context";
+
+const Navbar =()=> {
+
+  const navigate = useNavigate()
+
+  const {searchText,setSearchText}=useContext(SearchResultContext)
+
+  const handleChange=(e:React.ChangeEvent<HTMLInputElement>)=>{
+
+    setSearchText(e.target.value)
+   navigate(`/search/${e.target.value}`)
+   if(e.target.value.length===0){
+    navigate(`/movies/`)
+   }
+
+  }
+
+  const handleSubmit=(e:React.FormEvent<HTMLFormElement>)=>{
+    e.preventDefault()
+    navigate(`/search/${e.target.value}`)
+
+  }
+
+  console.log('search text:',searchText)
+  
   return (
     <>
       <div className="flex justify-between md:px-10 sm:px-5 px-5 items-center gap-3 text-xl my-3">
@@ -17,8 +43,11 @@ function Navbar() {
         </div>
         
         <div className="flex gap-3 items-center">
-            <form action="">
-                <Input placeholder="Search" className="border-gray-500 rounded-2xl md:w-fit sm:w-[30vw] "/>
+            <form onSubmit={handleSubmit}>
+                <Input 
+                value={searchText}
+                onChange={handleChange}
+                placeholder="Search" className="border-gray-500 rounded-2xl md:w-fit sm:w-[30vw] "/>
             </form>
             <div className="md:block sm:hidden hidden">
                 <div className="flex gap-6 items-center">

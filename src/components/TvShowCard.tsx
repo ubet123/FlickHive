@@ -7,6 +7,14 @@ interface Props {
 }
 
 const TvShowCard = ({tvShowResult}:Props) => {
+if(!tvShowResult){
+  return(
+    <>
+    <h1>No Search Results Found</h1>
+    </>
+  )
+}
+
   return (
      <>
         <div className="flex flex-col  items-center">
@@ -15,7 +23,7 @@ const TvShowCard = ({tvShowResult}:Props) => {
            
             <img
               src={`https://image.tmdb.org/t/p/w500${tvShowResult.poster_path}`}
-              alt="Movie Poster"
+              alt="TvShow Poster Loading..."
               className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
             />
     

@@ -6,6 +6,13 @@ interface Props {
 }
 
 const MovieCard = ({ movieResult }: Props) => {
+  if(!movieResult){
+    return(
+      <>
+      <h1>No Search Results Found</h1>
+      </>
+    )
+  }
   return (
     <>
     <div className="flex flex-col  items-center">
@@ -13,8 +20,8 @@ const MovieCard = ({ movieResult }: Props) => {
       <div className="group relative w-50 h-96 bg-gray-800 dark:bg-gray-700 rounded-lg overflow-hidden shadow-lg cursor-pointer">
        
         <img
-          src={`https://image.tmdb.org/t/p/w500${movieResult.poster_path}`}
-          alt="Movie Poster"
+          src={`https://image.tmdb.org/t/p/w500${movieResult.poster_path?movieResult.poster_path:"Movie Poster Loading...."}`}
+          alt="Movie Poster Loading..."
           className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
         />
 
