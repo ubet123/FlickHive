@@ -1,3 +1,36 @@
+
+# FlickHive
+The Favorite Movies/TV Shows Tracker lets users manage and filter their favorite movies and TV shows by genre. It includes dark mode and stores preferences using local storage for a seamless experience.
+
+## Features
+
+- **Favorites Management**: Add or remove movies and TV shows from your favorites list.
+- **Genre Filtering**: Filter movies and TV shows by genre to easily find content that matches your interests.
+- **Search Functionality**: Quickly search for specific movies or TV shows with a robust search feature.
+- **Dark Mode Toggle**: Switch between light and dark themes for a more comfortable viewing experience.
+- **Responsive Design**: Optimized for both mobile and desktop devices to ensure accessibility.
+- **Local Storage**: Saves your favorites list in local storage, keeping your preferences across sessions.
+
+## Tech Stack
+
+
+
+- **React.js**
+- **Context API**
+- **TypeScript**
+- **Tailwind CSS**
+- **Local Storage**
+- **Shadcn**
+
+
+
+
+
+
+
+
+
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
