@@ -1,48 +1,28 @@
-import useMovieList from "@/hooks/useMovies";
-import MovieCard from "./MovieCard";
-import { useContext } from "react";
-import { GenresContext } from "@/context/genres.context";
-import { useDarkMode } from "@/context/DarkModeContext"; // Import the dark mode context hook
-import Footer from "./Footer";
+import { IoMdArrowDropdown } from 'react-icons/io';
+import { useState } from 'react';
+import { useDarkMode } from '@/context/DarkModeContext'; // Import the dark mode hook
+import MovieCard from '../MovieCard';
+import { useTrendingList } from '@/hooks/useTrendingList';
 
-const MovieList = () => {
-  const { genres } = useContext(GenresContext);
-  const { movieLists , loading } = useMovieList(genres);
-  
+const TrendingMovie = () => {
+  const { trendingData } = useTrendingList('movie');
+  const [expand, setExpand] = useState(false);
   const { isDarkMode, toggleDarkMode } = useDarkMode(); // Use dark mode context
 
-  
-
-  if(loading){
-    return(
-    <>
-    
-    <div className="flex justify-center items-center mt-0 h-screen">
-  <button className="inline-block w-60 h-20 rounded-full bg-green-500 text-neutral-50 shadow-[0_4px_9px_-4px_rgba(51,45,45,0.7)] hover:bg-green-600 hover:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)] focus:bg-green-800 focus:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)] active:bg-green-700 active:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)] px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal transition duration-150 ease-in-out focus:outline-none focus:ring-0" type="button">
-    <div
-      role="status"
-      className="inline-block h-3 w-3 mr-2 animate-spin rounded-full border-2 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
-    >
-      <span className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">
-        Loading...
-      </span>
-    </div>
-    Loading
-  </button>
-</div>
-
-
-    
-    </>)
-  }
-
   return (
-    <>
     <div className={`p-3  pt-6 ${isDarkMode ? 'bg-gray-900 text-white' : 'bg-blue-50 text-black'}`}>
-      <div className="flex items-center justify-between px-8">
-        <h1 className={`text-4xl font-semibold ${isDarkMode ? 'text-white' : 'text-black'}`}>Movies</h1>
-        
-        {/* Dark mode toggle */}
+      {/* Toggle Switch */}
+      <div className="flex justify-between items-center">
+        <h1
+          className="text-3xl font-semibold p-5 py-8 flex items-center cursor-pointer hover:text-blue-500" 
+          onClick={() => setExpand(!expand)}
+        >
+          Trending Movies
+          <IoMdArrowDropdown
+            className={`cursor-pointer hover:text-blue-500 transition-transform duration-300 ${expand ? 'rotate-180' : 'rotate-0'}`}
+          />
+        </h1>
+
         <label className="inline-flex items-center relative cursor-pointer">
           <input
             className="peer hidden"
@@ -80,17 +60,25 @@ const MovieList = () => {
           </svg>
         </label>
       </div>
+
+      {/* Movie Cards */}
       <div className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-y-3 overflow-x-hidden">
-        {movieLists?.map((movieList) => (
-          <div key={movieList.id}>
-            <MovieCard movieResult={movieList} />
-          </div>
-        ))}
+        {expand &&
+          trendingData.map((movie) => (
+            <div key={movie.id}>
+              <MovieCard movieResult={movie} />
+            </div>
+          ))}
+
+        {!expand &&
+          trendingData.slice(0, 8).map((movie) => (
+            <div key={movie.id}>
+              <MovieCard movieResult={movie} />
+            </div>
+          ))}
       </div>
     </div>
-    <Footer/>
-    </>
   );
 };
 
-export default MovieList;
+export default TrendingMovie;

@@ -6,16 +6,21 @@ import { BrowserRouter } from 'react-router'
 import { GenresProvider } from './context/genres.context.tsx'
 import { SearchProvider } from './context/searchResult.context.tsx'
 
+import { DarkModeProvider } from './context/DarkModeContext.tsx'
+import { FavoriteProvider } from './context/FavoriteContext.tsx'
+
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BrowserRouter>
+    <FavoriteProvider>
+    <DarkModeProvider>
     <SearchProvider>
     <GenresProvider>
     <App />
     </GenresProvider>
     </SearchProvider>
-    
-    
+    </DarkModeProvider>
+    </FavoriteProvider>
     </BrowserRouter>
    
   </StrictMode>,
