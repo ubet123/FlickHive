@@ -26,7 +26,7 @@ The Favorite Movies/TV Shows Tracker lets users manage and filter their favorite
 
 Here are some screenshots of the application:
 
-![App Screenshot 1](./assets/screenshot1.png)
+![App Screenshot 1](./Screenshot 2025-01-12 190950.png)
 ![App Screenshot 2](./assets/screenshot2.png)
 
 
