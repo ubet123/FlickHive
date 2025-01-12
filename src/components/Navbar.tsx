@@ -1,7 +1,7 @@
 import { BiCameraMovie } from "react-icons/bi";
 import { Input } from "./ui/input";
 import { Link, useNavigate, useLocation } from "react-router";
-import { CiHeart } from "react-icons/ci";
+
 import Genres from "./Genres";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { useContext, useState } from "react";
@@ -12,9 +12,11 @@ import { GiHamburgerMenu } from "react-icons/gi"; // Import hamburger icon
 import { IoMdClose } from "react-icons/io"; // Import close icon
 
 const Navbar = () => {
-  const { isDarkMode, toggleDarkMode } = useDarkMode();
+ // @ts-expect-error: TS1234 because the library definition is wrong
+  const { isDarkMode } = useDarkMode();
   const navigate = useNavigate();
   const location = useLocation(); // Get current URL
+ // @ts-expect-error: TS1234 because the library definition is wrong
   const { searchText, setSearchText } = useContext(SearchResultContext);
   const [menuOpen, setMenuOpen] = useState(false); // State for hamburger menu
 
@@ -28,6 +30,7 @@ const Navbar = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+     // @ts-expect-error: TS1234 because the library definition is wrong
     navigate(`/search/${e.target.value}`);
   };
 

@@ -1,8 +1,8 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 
 // Interface for Favorite Movie/TV show
 interface FavoriteContextType {
-  favorites: number[]; // Store the list of favorite IDs
+  favorites: number[];
   toggleFavorite: (id: number) => void;
 }
 
@@ -16,21 +16,31 @@ export const useFavorites = () => {
   return context;
 };
 
-export const FavoriteProvider: React.FC = ({ children }) => {
-  // Load favorites from localStorage initially
-  const storedFavorites = JSON.parse(localStorage.getItem("favoritesLocal") || "[]");
+// Props for FavoriteProvider
+interface FavoriteProviderProps {
+  children: ReactNode;
+}
+
+export const FavoriteProvider: React.FC<FavoriteProviderProps> = ({ children }) => {
+  const storedFavorites = (() => {
+    try {
+      return JSON.parse(localStorage.getItem("favoritesLocal") || "[]");
+    } catch {
+      return [];
+    }
+  })();
+
   const [favorites, setFavorites] = useState<number[]>(storedFavorites);
 
-  // Update localStorage whenever favorites change
   useEffect(() => {
     localStorage.setItem("favoritesLocal", JSON.stringify(favorites));
-  }, [favorites]); // Runs whenever favorites change
+  }, [favorites]);
 
   const toggleFavorite = (id: number) => {
     setFavorites((prevFavorites) =>
       prevFavorites.includes(id)
-        ? prevFavorites.filter((favoriteId) => favoriteId !== id) // Remove if already a favorite
-        : [...prevFavorites, id] // Add if not a favorite
+        ? prevFavorites.filter((favoriteId) => favoriteId !== id)
+        : [...prevFavorites, id]
     );
   };
 

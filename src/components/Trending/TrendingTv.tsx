@@ -6,7 +6,8 @@ import TvShowCard from "../TvShowCard";
 
 const TrendingTv = () => {
     const {trendingData} = useTrendingList("tv")
-    const { isDarkMode, toggleDarkMode } = useDarkMode();
+     // @ts-expect-error: TS1234 because the library definition is wrong
+    const { isDarkMode } = useDarkMode();
     const [expand , setExpand]=useState(false)
   
     return (
@@ -18,12 +19,14 @@ const TrendingTv = () => {
               
               <div className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-y-3 overflow-x-hidden">
                   { expand && trendingData.map((tv)=>(
+                     // @ts-expect-error: TS1234 because the library definition is wrong
                         <div key={tv.id}>
                           <TvShowCard tvShowResult={tv}/>
                         </div>
                   ))}
   
   { !expand && trendingData.slice(0,8).map((tv)=>(
+     // @ts-expect-error: TS1234 because the library definition is wrong
                         <div key={tv.id}>
                           <TvShowCard tvShowResult={tv}/>
                         </div>

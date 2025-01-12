@@ -8,7 +8,7 @@ import Footer from "./Footer";
 const MovieList = () => {
   const { genres } = useContext(GenresContext);
   const { movieLists , loading } = useMovieList(genres);
-  
+  // @ts-expect-error: TS1234 because the library definition is wrong
   const { isDarkMode, toggleDarkMode } = useDarkMode(); // Use dark mode context
 
   

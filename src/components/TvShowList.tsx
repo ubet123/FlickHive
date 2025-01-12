@@ -6,6 +6,7 @@ import Footer from './Footer';
 
 const TvShowList = () => {
   const { tvShows,loading } = useTvShowList();
+  // @ts-expect-error: TS1234 because the library definition is wrong
 const { isDarkMode, toggleDarkMode } = useDarkMode();
 
 

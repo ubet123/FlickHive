@@ -12,6 +12,7 @@ import { FavoriteProvider } from './context/FavoriteContext.tsx'
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BrowserRouter>
+    
     <FavoriteProvider>
     <DarkModeProvider>
     <SearchProvider>

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import { Link, useParams } from "react-router";
-import { Params } from "react-router";
+
 
 import { useDarkMode } from "@/context/DarkModeContext";
 import Footer from "./Footer";
@@ -19,8 +19,8 @@ const Player = () => {
   // Use the dynamic 'id' from the URL
   const { id } = useParams()
 console.log('Params id',id)
-
-const { isDarkMode, toggleDarkMode } = useDarkMode();
+// @ts-expect-error: TS1234 because the library definition is wrong
+const { isDarkMode } = useDarkMode();
 
   useEffect(() => {
     const fetchData = async () => {

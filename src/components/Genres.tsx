@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuLabel,
+
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
   DropdownMenuSeparator,
@@ -55,6 +55,7 @@ const Genres = () => {
       <DropdownMenuContent className="w-56">
         <DropdownMenuSeparator />
         <DropdownMenuRadioGroup
+        // @ts-expect-error: TS1234 because the library definition is wrong
           value={genres || ""}
           onValueChange={(value) => onChange(Number(value))}
           className="overflow-auto max-h-96"

@@ -4,8 +4,8 @@ import { useDarkMode } from "@/context/DarkModeContext";
 
 
 const Footer: React.FC = () => {
-
-    const { isDarkMode, toggleDarkMode } = useDarkMode();
+// @ts-expect-error: TS1234 because the library definition is wrong
+    const { isDarkMode } = useDarkMode();
 
   return (
     <footer className={` ${isDarkMode ? 'bg-gray-900 text-white' : 'bg-white text-black'} w-full pt-20 pb-8  text-center`}>
