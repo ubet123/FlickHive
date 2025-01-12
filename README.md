@@ -22,7 +22,12 @@ The Favorite Movies/TV Shows Tracker lets users manage and filter their favorite
 - **Local Storage**
 - **Shadcn**
 
+## Screenshots
 
+Here are some screenshots of the application:
+
+![App Screenshot 1](./assets/screenshot1.png)
+![App Screenshot 2](./assets/screenshot2.png)
 
 
 
