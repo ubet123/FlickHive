@@ -1,7 +1,6 @@
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
-import { useFavorites } from "@/context/FavoriteContext"; // Import context
+import { useFavorites, FavoriteItem } from "@/context/FavoriteContext";
 import { MovieResult } from "@/hooks/useMovies";
-
 import { Link } from "react-router";
 
 interface Props {
@@ -9,50 +8,66 @@ interface Props {
 }
 
 const MovieCard = ({ movieResult }: Props) => {
-  const { favorites, toggleFavorite } = useFavorites(); 
+  const { favorites, toggleFavorite } = useFavorites();
 
   // Check if the current movie is in favorites
-  const isFavorite = favorites.includes(movieResult.id); 
+  const isFavorite = favorites.includes(movieResult.id);
 
   return (
-    <div className="flex flex-col items-center">
-      <div className="flex items-center justify-center mt-8 mb-2 bg-gray-100 dark:bg-gray-900">
-        <div className="group relative w-50 h-96 bg-gray-800 dark:bg-gray-700 rounded-lg overflow-hidden shadow-lg cursor-pointer">
-          <img
-            src={`https://image.tmdb.org/t/p/w500${movieResult.poster_path}`}
-            alt="Movie Poster Loading"
-            className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-          />
+    <div className="flex flex-col items-center px-2">
+      <div className="group relative w-full max-w-[200px] aspect-[2/3] rounded-xl overflow-hidden shadow-lg hover:shadow-2xl cursor-pointer transition-all duration-300 hover:-translate-y-1">
+        <img
+          src={`https://image.tmdb.org/t/p/w500${movieResult.poster_path}`}
+          alt={movieResult.title || "Movie Poster"}
+          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+        />
 
-          <div
-            onClick={() => toggleFavorite(movieResult.id)} 
-            className="absolute top-3 right-3 z-10"
-          >
-            {isFavorite ? (
-              <AiFillHeart
-                title="Added to Favorites"
-                className="text-2xl rounded-full cursor-pointer opacity-0 group-hover:opacity-100 text-red-500"
-              />
-            ) : (
-              <AiOutlineHeart
-                title="Add to Favorites"
-                className="text-2xl rounded-full cursor-pointer opacity-0 group-hover:opacity-100 text-white hover:text-red-500"
-              />
-            )}
-          </div>
+        {/* Favorite button — always visible with backdrop */}
+        <div
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            const item: FavoriteItem = {
+              id: movieResult.id,
+              media_type: 'movie',
+              title: movieResult.title,
+              name: movieResult.name,
+              poster_path: movieResult.poster_path,
+              overview: movieResult.overview,
+              original_language: movieResult.original_language,
+              original_title: movieResult.original_title,
+              backdrop_path: movieResult.backdrop_path,
+              adult: movieResult.adult,
+            };
+            toggleFavorite(movieResult.id, item);
+          }}
+          className="absolute top-3 right-3 z-10 p-1.5 rounded-full bg-black/40 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-black/60"
+        >
+          {isFavorite ? (
+            <AiFillHeart
+              title="Added to Favorites"
+              className="text-xl text-red-500 transition-transform duration-200 hover:scale-110"
+            />
+          ) : (
+            <AiOutlineHeart
+              title="Add to Favorites"
+              className="text-xl text-white hover:text-red-400 transition-colors duration-200"
+            />
+          )}
+        </div>
 
-          <div className="absolute inset-0 bg-black bg-opacity-80 flex flex-col justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-            <h2 className="text-white text-xl text-center max-w-72 font-semibold mb-2 ">{movieResult.title}</h2>
-            <p className="text-white text-sm text-center px-4 max-h-20 overflow-y-hidden">{movieResult.overview}</p>
-           <Link to={`/player/${movieResult.id}`}>
-            <button className="mt-4 px-6 py-2 bg-blue-500 hover:bg-blue-600 text-white text-sm font-medium rounded shadow">
+        {/* Hover overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-transparent flex flex-col justify-end items-center p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <h2 className="text-white text-base text-center font-semibold mb-1 line-clamp-2">{movieResult.title}</h2>
+          <p className="text-gray-300 text-xs text-center line-clamp-3 mb-3">{movieResult.overview}</p>
+          <Link to={`/player/${movieResult.id}`}>
+            <button className="px-5 py-1.5 bg-blue-500 hover:bg-blue-600 text-white text-sm font-medium rounded-full shadow-lg transition-all duration-300">
               Watch Now
             </button>
-            </Link>
-          </div>
+          </Link>
         </div>
       </div>
-      <h1 className="max-w-60 text-center">{movieResult.title ? movieResult.title : movieResult.name}</h1>
+      <h1 className="mt-3 mb-4 max-w-[200px] text-sm text-center font-medium line-clamp-1">{movieResult.title ? movieResult.title : movieResult.name}</h1>
     </div>
   );
 };
