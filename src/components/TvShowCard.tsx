@@ -4,7 +4,7 @@ import { Link } from "react-router";
 import { useFavorites, FavoriteItem } from "@/context/FavoriteContext";
 
 interface Props {
-  tvShowResult: TvResult;
+  tvShowResult: TvResult | FavoriteItem;
 }
 
 const TvShowCard = ({ tvShowResult }: Props) => {

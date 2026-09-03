@@ -2,12 +2,12 @@ import apiClient from "@/services/api-client";
 import { useEffect, useState } from "react";
 
 export interface MovieResult {
-  adult: boolean;
+  adult?: boolean;
   id: number;
-  original_language: string;
-  original_title: string;
-  title: string;
-  backdrop_path: string;
+  original_language?: string;
+  original_title?: string;
+  title?: string;
+  backdrop_path?: string;
   poster_path: string;
   overview: string;
   name?: string;

@@ -4,7 +4,7 @@ import { MovieResult } from "@/hooks/useMovies";
 import { Link } from "react-router";
 
 interface Props {
-  movieResult: MovieResult;
+  movieResult: MovieResult | FavoriteItem;
 }
 
 const MovieCard = ({ movieResult }: Props) => {
